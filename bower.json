@@ -1,0 +1,25 @@
+{
+  "name": "labs3d",
+  "version": "0.0.0",
+  "homepage": "https://github.com/shimar/labs3d",
+  "authors": [
+    "shima01xyz <shima01xyz@gmail.com>"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "1",
+    "bootstrap": "~3.1.1"
+  }
+}
