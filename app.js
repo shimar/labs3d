@@ -19,8 +19,18 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
+
+var bootstrap = path.join(__dirname, 'components', 'bootstrap')
+app.use(require('less-middleware')(
+  {
+    src   : path.join(__dirname, 'public', 'stylesheets'),
+    paths : [path.join(bootstrap, 'less')],
+    dest  : path.join(__dirname, 'public', 'stylesheets'),
+    prefix: '/stylesheets'
+  }
+));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'components')));
 
 app.use('/', routes);
 app.use('/users', users);
