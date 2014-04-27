@@ -1,4 +1,7 @@
-extends layout
+extends layout3d
 
 block content
-  h1= title
+
+block javascripts
+  script(src='javascripts/OrbitControls.js')
+  script(src='javascripts/timeline.js')
