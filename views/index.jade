@@ -1,5 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .row
+    .col-xs-12
+      .text-center
+        h1= title
+        p Welcome to #{title}
+  .row
+    .col-xs-12
+      p
+        a(href='/timeline'). timeline
