@@ -1,10 +1,21 @@
 // timeline.js
+var KEY_UP   = 38;
+var KEY_DOWN = 40;
+
 var container;
 var camera;
-var scene;
-var renderer;
+var scene, scene2;
+var renderer, renderer2;
 var light;
 var controls;
+
+var tlGeometry;
+var timeline;
+var box;
+
+// array of timeline.
+var vertices  = [];
+var timeindex = 0;
 
 init();
 animate();
@@ -17,60 +28,74 @@ function init() {
   container = document.createElement('div');
   document.body.appendChild(container);
 
-  camera = new THREE.PerspectiveCamera(45, aspect, 1, 10000);
-  camera.position.set(0, 200, 800);
+  camera = new THREE.PerspectiveCamera(45, aspect, 1, 80000);
+  camera.position.set(0, 0, 800);
 
   scene  = new THREE.Scene();
+  scene2 = new THREE.Scene();
 
   // renderer.
   // renderer = new THREE.WebGLRenderer({antialias: true});
   renderer = new THREE.CanvasRenderer();
   renderer.setSize(width, height);
   container.appendChild(renderer.domElement);
+  renderer2 = new THREE.CSS3DRenderer();
+  renderer2.setSize(width, height);
+  renderer2.domElement.style.position = 'absolute';
+  renderer2.domElement.style.top = 0;
+  container.appendChild(renderer2.domElement);
 
   // controls.
   controls = new THREE.OrbitControls(camera, container);
+  controls.noZoom = true;
+  controls.noKeys = true;
 
   // lines.
   var material = new THREE.LineBasicMaterial({
     color: 0x0000ff
   });
-  var lineGeometry = new THREE.Geometry();
-  var lineStep = 200;
-  for (var i = 0; i < 100; i++) {
-    var y = Math.pow(1.8, i) - 50;
-    var z = -i * lineStep + 400;
-    lineGeometry.vertices.push(new THREE.Vector3( 240, y, z));
-    lineGeometry.vertices.push(new THREE.Vector3(-240, y, z));
+  tlGeometry = new THREE.Geometry();
+  var lineStep = 800;
+  for (var i = 0; i < 365; i++) {
+    // var y = Math.pow(1.8, i) - 50;
+    // var z = -i * lineStep + 400;
+    var y = (i * i) * 6;
+    var z = -i * lineStep + 200;
+    var point = new THREE.Vector3(240, y, z);
+    // tlGeometry.vertices.push(point);
+    // tlGeometry.vertices.push(new THREE.Vector3(-240, y, z));
+    vertices.push(point);
   }
-  var line = new THREE.Line(lineGeometry, material, THREE.LinePieces);
-  scene.add(line);
+  // timeline = new THREE.Line(tlGeometry, material, THREE.LinePieces);
+  // scene.add(timeline);
 
+  // var boxGeometry = new THREE.BoxGeometry(480, 240, 1);
+  // var boxMaterial = new THREE.MeshPhongMaterial({color: 0x0000ff, opacity: 0.5});
+  // box = new THREE.Mesh(boxGeometry, boxMaterial);
+  // box.position.set(0, 0, 0);
+  // scene.add(box);
 
-  // grid
-  // var lineMaterial = new THREE.LineBasicMaterial({
-  //   color: 0x303030
-  // });
-  // var geometry = new THREE.Geometry();
-  // var floor = -75;
-  // var step  = 25;
+  for (var j = 0; j < vertices.length; j++) {
+    var geom = new THREE.BoxGeometry(480, 240, 1);
+    var mat  = new THREE.MeshPhongMaterial({ color: 0x0000ff, opacity: .6 });
+    var rect = new THREE.Mesh(geom, mat);
+    var point = vertices[j];
+    rect.position.set(0, point.y, point.z);
+    scene.add(rect);
+  }
 
-  // for (var i = 0; i <= 40; i++) {
-  //   geometry.vertices.push(new THREE.Vector3(-500, floor, i * step - 500));
-  //   geometry.vertices.push(new THREE.Vector3( 500, floor, i * step - 500));
-
-  //   geometry.vertices.push(new THREE.Vector3(i * step - 500, floor, -500));
-  //   geometry.vertices.push(new THREE.Vector3(i * step - 500, floor,  500));
-  // }
-  // var grid = new THREE.Line(geometry, lineMaterial, THREE.LinePieces);
-  // scene.add(grid);
+  light = new THREE.AmbientLight(0xffffff);
+  light.position.set(0, 500, 200);
+  scene.add(light);
 
   // event listeners.
-  window.addEventListener('resize', onWindowResize, false);
+  window.addEventListener('resize',  onWindowResize, false);
+  window.addEventListener('keydown', onKeyDown,      false);
 }
 
 function animate() {
   requestAnimationFrame(animate);
+  TWEEN.update();
   render();
 }
 
@@ -80,6 +105,7 @@ function render() {
   // camera.position.z = Math.sin(timer) * 1000;
   // camera.lookAt(scene.position);
   renderer.render(scene, camera);
+  renderer2.render(scene, camera);
 }
 
 function onWindowResize() {
@@ -89,4 +115,48 @@ function onWindowResize() {
   camera.aspect = aspect;
   camera.updateProjectionMatrix();
   renderer.setSize(width, height);
+  renderer2.setSize(width, height);
+}
+
+function onKeyDown(e) {
+  if (e.keyCode !== KEY_UP && e.keyCode !== KEY_DOWN) {
+    return true;
+  }
+  e.preventDefault();
+  if (e.keyCode === KEY_UP) {
+    // box.position.z -= 20;
+    next(timeline);
+  } else if (e.keyCode === KEY_DOWN) {
+    // box.position.z += 20;
+    prev(timeline);
+  }
+  return false;
+}
+
+function prev(object) {
+  if (timeindex === 100) {
+    return;
+  }
+  timeindex++;
+  var tween = new TWEEN.Tween({x: camera.position.x, y: camera.position.y, z: camera.position.z})
+              .to({x: 0, y: vertices[timeindex].y, z: vertices[timeindex].z + 600})
+              .easing(TWEEN.Easing.Cubic.Out)
+              .onUpdate(function() {
+                camera.position.set(this.x, this.y, this.z);
+              })
+              .start();
+}
+
+function next(object) {
+  if (timeindex === 0) {
+    return;
+  }
+  timeindex--;
+  var tween = new TWEEN.Tween({x: camera.position.x, y: camera.position.y, z: camera.position.z})
+              .to({x: 0, y: vertices[timeindex].y, z: vertices[timeindex].z + 600})
+              .easing(TWEEN.Easing.Cubic.Out)
+              .onUpdate(function() {
+                camera.position.set(this.x, this.y, this.z);
+              })
+              .start();
 }
