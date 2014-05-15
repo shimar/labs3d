@@ -29,7 +29,7 @@ function init() {
   document.body.appendChild(container);
 
   camera = new THREE.PerspectiveCamera(45, aspect, 1, 80000);
-  camera.position.set(0, 0, 800);
+  camera.position.set(-100, 0, 800);
 
   scene  = new THREE.Scene();
   scene2 = new THREE.Scene();
@@ -119,11 +119,9 @@ function onKeyDown(e) {
   }
   e.preventDefault();
   if (e.keyCode === KEY_UP) {
-    // box.position.z -= 20;
-    next(timeline);
-  } else if (e.keyCode === KEY_DOWN) {
-    // box.position.z += 20;
     prev(timeline);
+  } else if (e.keyCode === KEY_DOWN) {
+    next(timeline);
   }
   return false;
 }
@@ -134,7 +132,7 @@ function prev(object) {
   }
   timeindex++;
   var tween = new TWEEN.Tween({x: camera.position.x, y: camera.position.y, z: camera.position.z})
-              .to({x: 0, y: vertices[timeindex].y, z: vertices[timeindex].z + 600})
+              .to({x: -100, y: vertices[timeindex].y, z: vertices[timeindex].z + 500})
               .easing(TWEEN.Easing.Cubic.Out)
               .onUpdate(function() {
                 camera.position.set(this.x, this.y, this.z);
@@ -148,7 +146,7 @@ function next(object) {
   }
   timeindex--;
   var tween = new TWEEN.Tween({x: camera.position.x, y: camera.position.y, z: camera.position.z})
-              .to({x: 0, y: vertices[timeindex].y, z: vertices[timeindex].z + 600})
+              .to({x: -100, y: vertices[timeindex].y, z: vertices[timeindex].z + 500})
               .easing(TWEEN.Easing.Cubic.Out)
               .onUpdate(function() {
                 camera.position.set(this.x, this.y, this.z);
