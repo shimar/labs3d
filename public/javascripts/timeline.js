@@ -62,26 +62,21 @@ function init() {
     var y = (i * i) * 6;
     var z = -i * lineStep + 200;
     var point = new THREE.Vector3(240, y, z);
-    // tlGeometry.vertices.push(point);
-    // tlGeometry.vertices.push(new THREE.Vector3(-240, y, z));
     vertices.push(point);
   }
-  // timeline = new THREE.Line(tlGeometry, material, THREE.LinePieces);
-  // scene.add(timeline);
-
-  // var boxGeometry = new THREE.BoxGeometry(480, 240, 1);
-  // var boxMaterial = new THREE.MeshPhongMaterial({color: 0x0000ff, opacity: 0.5});
-  // box = new THREE.Mesh(boxGeometry, boxMaterial);
-  // box.position.set(0, 0, 0);
-  // scene.add(box);
-
   for (var j = 0; j < vertices.length; j++) {
-    var geom = new THREE.BoxGeometry(480, 240, 1);
-    var mat  = new THREE.MeshPhongMaterial({ color: 0x0000ff, opacity: .6 });
-    var rect = new THREE.Mesh(geom, mat);
+    // var geom = new THREE.BoxGeometry(480, 240, 1);
+    // var mat  = new THREE.MeshPhongMaterial({ color: 0x0000ff, wireframe: true });
+    // var rect = new THREE.Mesh(geom, mat);
+    // rect.position.set(0, point.y, point.z);
+    // scene.add(rect);
     var point = vertices[j];
-    rect.position.set(0, point.y, point.z);
-    scene.add(rect);
+    var $element = $(document.createElement('div'));
+    $element.addClass('date-block');
+    $element.html('' + (j + 1));
+    var object = new THREE.CSS3DObject($element[0]);
+    object.position.set(0, point.y, point.z);
+    scene2.add(object);
   }
 
   light = new THREE.AmbientLight(0xffffff);
@@ -105,7 +100,7 @@ function render() {
   // camera.position.z = Math.sin(timer) * 1000;
   // camera.lookAt(scene.position);
   renderer.render(scene, camera);
-  renderer2.render(scene, camera);
+  renderer2.render(scene2, camera);
 }
 
 function onWindowResize() {
