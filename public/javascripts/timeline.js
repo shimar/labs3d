@@ -65,11 +65,6 @@ function init() {
     vertices.push(point);
   }
   for (var j = 0; j < vertices.length; j++) {
-    // var geom = new THREE.BoxGeometry(480, 240, 1);
-    // var mat  = new THREE.MeshPhongMaterial({ color: 0x0000ff, wireframe: true });
-    // var rect = new THREE.Mesh(geom, mat);
-    // rect.position.set(0, point.y, point.z);
-    // scene.add(rect);
     var point = vertices[j];
     var $element = $(document.createElement('div'));
     $element.addClass('date-block');
@@ -95,10 +90,6 @@ function animate() {
 }
 
 function render() {
-  // var timer = 0.0001 * Date.now();
-  // camera.position.x = Math.cos(timer) * 1000;
-  // camera.position.z = Math.sin(timer) * 1000;
-  // camera.lookAt(scene.position);
   renderer.render(scene, camera);
   renderer2.render(scene2, camera);
 }
