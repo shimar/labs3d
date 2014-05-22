@@ -20,11 +20,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 
-var bootstrap = path.join(__dirname, 'components', 'bootstrap')
+var bootstrap   = path.join(__dirname, 'components', 'bootstrap');
+var fontawesome = path.join(__dirname, 'components', 'fontawesome');
 app.use(require('less-middleware')(
   {
     src   : path.join(__dirname, 'public', 'stylesheets'),
-    paths : [path.join(bootstrap, 'less')],
+    paths : [path.join(bootstrap, 'less'),
+             path.join(fontawesome, 'less')],
     dest  : path.join(__dirname, 'public', 'stylesheets'),
     prefix: '/stylesheets'
   }
