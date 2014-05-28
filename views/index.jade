@@ -3,10 +3,28 @@ extends layout
 block content
   .row
     .col-xs-12
-      .text-center
+      .jumbotron.text-center
         h1= title
-        p Welcome to #{title}
+        p.
+          A laboratory of 3D on web.
   .row
-    .col-xs-12
-      p
-        a(href='/timeline'). timeline
+    .col-xs-8.col-xs-offset-2
+      .row
+        .col-xs-4.text-center
+          a(href='#')
+            h5 demo03
+            p
+              small.
+                something for description.
+        .col-xs-4.text-center
+          a(href='#')
+            h5 particle system
+            p
+              small.
+                partcle system
+        .col-xs-4.text-center
+          a(href='/timeline')
+            h5 timeline
+            p
+              small.
+                display the timeline on 3d.
