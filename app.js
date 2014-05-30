@@ -4,6 +4,7 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var assets = require('connect-assets');
 
 var routes = require('./routes/index');
 var users  = require('./routes/users');
@@ -20,19 +21,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 
-var bootstrap   = path.join(__dirname, 'components', 'bootstrap');
-var fontawesome = path.join(__dirname, 'components', 'fontawesome');
-app.use(require('less-middleware')(
-  {
-    src   : path.join(__dirname, 'public', 'stylesheets'),
-    paths : [path.join(bootstrap, 'less'),
-             path.join(fontawesome, 'less')],
-    dest  : path.join(__dirname, 'public', 'stylesheets'),
-    prefix: '/stylesheets'
-  }
-));
+app.use(assets({
+  paths: [path.join(__dirname, 'assets/js'),
+          path.join(__dirname, 'assets/css'),
+          path.join(__dirname, 'components')],
+  buildDir: 'public/assets'
+}));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'components')));
 
 app.use('/', routes);
 app.use('/users', users);

@@ -25,3 +25,7 @@ build/Release
 node_modules
 components
 *.css
+
+public/assets/*.js*
+public/assets/*.css*
+public/assets/*.json
