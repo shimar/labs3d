@@ -28,6 +28,7 @@ app.use(assets({
   buildDir: 'public/assets'
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'components', '')));
 
 app.use('/', routes);
 app.use('/users', users);
