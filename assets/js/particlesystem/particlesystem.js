@@ -71,7 +71,10 @@ function animate() {
 };
 
 function render() {
+  var time = Date.now() * 0.001;
   controls.update();
+  particleSystem.rotation.x = time * 0.25;
+  particleSystem.rotation.y = time * 0.1;
   renderer.render(scene, camera);
 };
 
