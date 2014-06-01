@@ -1,5 +1,12 @@
 extends layout
 
+mixin experiment(url, header, description)
+  .experiment.col-xs-4.text-center
+    a(href=url)
+      h5= header
+      p
+        small= description
+
 block content
   .row
     .col-xs-12
@@ -10,21 +17,6 @@ block content
   .row
     .col-xs-8.col-xs-offset-2
       .row
-        .col-xs-4.text-center
-          a(href='#')
-            h5 demo03
-            p
-              small.
-                something for description.
-        .col-xs-4.text-center
-          a(href='/particlesystem')
-            h5 particle system
-            p
-              small.
-                partcle system
-        .col-xs-4.text-center
-          a(href='/timeline')
-            h5 timeline
-            p
-              small.
-                display the timeline on 3d.
+        +experiment('#', 'demo03', 'coming soon')
+        +experiment('/particlesystem', 'particle system', 'particle system')
+        +experiment('/timeline', 'timeline', 'display the timeline on 3d.')
