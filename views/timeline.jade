@@ -2,12 +2,12 @@ extends layout3d
 
 block content
   nav.navbar.navbar-inverse.navbar-static-top(role='navigation')
-    div.container-fluid
+    div.container
       div.navbar-header
         a.navbar-brand(href='/') labs3d
       ul.nav.navbar-nav.navbar-right
         li
-          a(href='#')
+          a#timeline-help-popover
             i.fa.fa-question-circle
 
 block javascripts

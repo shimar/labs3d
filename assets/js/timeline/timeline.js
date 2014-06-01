@@ -81,6 +81,15 @@ function init() {
   // event listeners.
   window.addEventListener('resize',  onWindowResize, false);
   window.addEventListener('keydown', onKeyDown,      false);
+
+  // init help popover.
+  $('#timeline-help-popover').popover({
+    placement: 'bottom',
+    html: true,
+    content: "<div><i class='fa fa-arrow-up'> key shows next.<br /><i class='fa fa-arrow-down'> key shows prev.</div>",
+    container: 'nav'
+  });
+  $('#timeline-help-popover').popover('show');
 }
 
 function animate() {
