@@ -21,7 +21,7 @@ function init() {
   document.body.appendChild(container);
 
   scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(45, aspect, 1, 8000);
+  camera = new THREE.PerspectiveCamera(45, aspect, 0.0001, 8000);
   camera.position = new THREE.Vector3(0, 20, 240);
   camera.lookAt(0, 0, 0);
   scene.add(camera);
@@ -45,6 +45,7 @@ function init() {
 function initParticles() {
   particles = new THREE.Geometry();
   particleMaterials = new THREE.ParticleBasicMaterial({
+    opacity: .2,
     vertexColors: true
   });
   var colors = [];
