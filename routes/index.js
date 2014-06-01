@@ -8,7 +8,12 @@ router.get('/', function(req, res) {
 
 /* GET timeline page. */
 router.get('/timeline', function(req, res) {
-  res.render('timeline', { title: 'timeline - labs3d' });
+  res.render('timeline', { title: 'Timeline - labs3d' });
+});
+
+/* GET particlesystem page. */
+router.get('/particlesystem', function(req, res) {
+  res.render('particlesystem', { title: 'Particle System - labs3d' });
 });
 
 module.exports = router;

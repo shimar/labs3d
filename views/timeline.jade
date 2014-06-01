@@ -1,10 +1,8 @@
 extends layout3d
 
 block content
-  nav.navbar.navbar-inverse.navbar-static-top(role='navigation')
-    div.container
-      div.navbar-header
-        a.navbar-brand(href='/') labs3d
+  include shared/header3d
+    block header_navi
       ul.nav.navbar-nav.navbar-right
         li
           a#timeline-help-popover
