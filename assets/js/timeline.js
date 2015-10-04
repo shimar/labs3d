@@ -1,5 +1,0 @@
-//= require "threejs/build/three.js"
-//= require "tweenjs/build/tween.min.js"
-//= require "./OrbitControls.js"
-//= require "./CSS3DRenderer.js"
-//= require "./timeline/timeline.js"
