@@ -5,7 +5,8 @@
     "bootstrap-sass": "~3.3.5",
     "font-awesome": "~4.4.0",
     "highlightjs": "~8.8.0",
-    "modernizr": "~2.8.1"
+    "modernizr": "~2.8.1",
+    "three.js": "threejs#*"
   },
   "overrides": {
     "bootstrap-sass": {
